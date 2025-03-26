@@ -1,5 +1,6 @@
 package edu.temple.dicethrow
 
+import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -21,6 +22,7 @@ The Activity layout files for both Portrait and Landscape are already provided
 
 class MainActivity : AppCompatActivity(), ButtonFragment.ButtonInterface {
     val isLandscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+    @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -36,13 +38,13 @@ class MainActivity : AppCompatActivity(), ButtonFragment.ButtonInterface {
         if (savedInstanceState == null){
             if (!isLandscape) {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, buttonFragment)
+                    .replace(R.id.container1, buttonFragment)
                     .commit()
             } else {
-                val detailFragment = DetailFragment()
+                val dieFragment = DieFragment()
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container_left, buttonFragment)
-                    .replace(R.id.fragment_container_right, detailFragment)
+                    .replace(R.id.container1, buttonFragment)
+                    .replace(R.id.container2, dieFragment)
                     .commit()
             }
         }
@@ -54,9 +56,9 @@ class MainActivity : AppCompatActivity(), ButtonFragment.ButtonInterface {
     // Remember to place Fragment transactions on BackStack so then can be reversed
     override fun buttonClicked() {
         if (!isLandscape){
-            val resultFragment = ResultFragment()
+            val dieFragment = DieFragment()
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, resultFragment)
+                .replace(R.id.container1, dieFragment)
                 .addToBackStack(null)
                 .commit()
         }
