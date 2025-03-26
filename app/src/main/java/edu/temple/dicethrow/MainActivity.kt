@@ -21,18 +21,15 @@ The Activity layout files for both Portrait and Landscape are already provided
 */
 
 class MainActivity : AppCompatActivity(), ButtonFragment.ButtonInterface {
-    val isLandscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
     @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        /* TODO 1: Load fragment(s)
-            - Show _only_ ButtonFragment if portrait
-            - show _both_ fragments if Landscape
-          */
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val isLandscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
         val buttonFragment = ButtonFragment()
 
         if (savedInstanceState == null){
@@ -50,11 +47,8 @@ class MainActivity : AppCompatActivity(), ButtonFragment.ButtonInterface {
         }
     }
 
-    /* TODO 2: switch fragments if die rolled and in portrait (no need to switch fragments if Landscape)
-        */
-    // This callback function gets invoked when the child Fragment invokes it
-    // Remember to place Fragment transactions on BackStack so then can be reversed
     override fun buttonClicked() {
+        val isLandscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
         if (!isLandscape){
             val dieFragment = DieFragment()
             supportFragmentManager.beginTransaction()
